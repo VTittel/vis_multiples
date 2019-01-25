@@ -75,6 +75,23 @@
             opacity: 0.2;
         }
 
+        .tooltip {
+            background: #eee;
+            box-shadow: 0 0 5px #999999;
+            color: #333;
+            display: none;
+            font-size: 10px;
+            /* left: 250px; */
+            /* margin-top: -60px; */
+            position: absolute;
+            text-align: center;
+            padding: 5px;
+            /* top: 150px; */
+            width: 110px;
+            z-index: 10;
+        }
+
+
         .tooltip > *:not(:last-child) {
             margin-bottom: 5px;
         }
@@ -93,11 +110,12 @@
 
 <div id="slider" style = "width:500px" ></div>
 <br>
-<div class="frequency"></div>
-<input type="radio" name="editList" value="always">Days
-<input type="radio" name="editList" value="never">Months
-<input type="radio" name="editList" value="costChange">Years
-<div class="frequency"></div>
+<div id="frequency">
+    <input type="radio" name="editList" value="Days">Days
+    <input type="radio" name="editList" value="Months" checked="checked">Months
+    <input type="radio" name="editList" value="Years">Years
+
+</div>
 
 <table id="vis">
     <tr>
@@ -125,11 +143,10 @@
 <script src="slider/jQDateRangeSlider-min.js"></script>
 
 <!-- Visualisation files -->
-<script src="slider/slider.js"></script>
-
 <script src="vis2.js"></script>
 <script src="vis3.js"></script>
 <script src="vis4.js"></script>
+<script src="slider/slider.js"></script>
 
 </body>
 </html>

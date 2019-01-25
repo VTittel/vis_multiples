@@ -5,6 +5,9 @@ var margin = {top: 50, right: 60, bottom: 60, left: 60};
 var widthGlobal = 400;
 var heightGlobal = 400;
 
+var previewWidth = 810;
+var previewHeight = 810;
+
 var categories = ["Film & Video", "Music", "Design","Games", "Fashion"];
 
 var svg2Clicked = false;

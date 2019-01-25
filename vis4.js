@@ -1,18 +1,18 @@
 var svg4Clicked = false;
+//var freqSelected = document.querySelector('input[name="editList"]:checked').value;
 
 var svg4 = d3.select("#vis1 svg");
+var dataset;
 
+var defaultStartDate = new Date(2014, 1, 1);
+var defaultEndDate = new Date(2015, 1, 1);
 
 var timeFormat = d3.timeFormat("%m/%d/%Y");
 
-function drawVis4(widthNew, heightNew, svgToUse, dif){
+function drawVis4(startDate, endDate, widthNew, heightNew, svgToUse, dif){
     d3.csv("data/short.csv", function (err, data) {
 
-
-        var startDate = new Date('1/1/14');
-        var endDate = new Date('1/1/17');
-
-        var dataset = data;
+        dataset = data;
 
         dataset = dataset.filter(function (d) {
             let launchedDate = new Date(d.launched);
@@ -21,8 +21,18 @@ function drawVis4(widthNew, heightNew, svgToUse, dif){
 
         dataset = d3.nest()
             .key(function (d) {
-                let launchedDate = new Date(d.launched);
-                return (launchedDate.getMonth()+1) + "/" + launchedDate.getFullYear();
+                switch(freqSelected){
+                    case "Days":
+                        return d.launched;
+
+                    case "Months":
+                        let launchedDate1 = new Date(d.launched);
+                        return (launchedDate1.getMonth()+1) + "/" + launchedDate1.getFullYear();
+
+                    case "Years":
+                        let launchedDate2 = new Date(d.launched);
+                        return (launchedDate2.getFullYear());
+                }
             })
             .rollup(function (leaves) {
                 return d3.sum(leaves, function(d){
@@ -31,6 +41,7 @@ function drawVis4(widthNew, heightNew, svgToUse, dif){
             })
             .entries(dataset);
 
+        console.log(dataset)
         var million = 10000;
 
 
@@ -57,12 +68,27 @@ function drawVis4(widthNew, heightNew, svgToUse, dif){
             return newDate;
         }
 
-      //  console.log(dataset)
+        function sliceYear(date){
+            return ("12/31/" + date);
+        }
 
         dataset.forEach(function (d, i) {
             d.ID = i.toString();
             d.formattedDate = d.key;
-            d.Date = new Date(sliceYearMonth(d.key));
+
+            switch(freqSelected){
+                case "Days":
+                    d.Date = new Date(d.key);
+                    break
+
+                case "Months":
+                    d.Date = new Date(sliceYearMonth(d.key));
+                    break;
+
+                case "Years":
+                    d.Date = new Date(sliceYear(d.key));
+            }
+
             d.formattedVal = format(d.value);
         });
 
@@ -105,9 +131,18 @@ function drawVis4(widthNew, heightNew, svgToUse, dif){
             .domain(y_extent)
             .range([5, 100]);
 
-        var calendar = d3.timeYear
-            .every(1)
-            .range(new Date(x_extent[0]), d3.timeYear.offset(new Date(x_extent[1])), 1);
+        var calendar;
+
+        if (freqSelected === "Years"){
+            calendar= d3.timeYear
+                .every(1)
+                .range(new Date(x_extent[0]), d3.timeYear.offset(new Date(x_extent[1])), 1);
+        }else {
+            calendar= d3.timeMonth
+                .every(2)
+                .range(new Date(x_extent[0]), d3.timeMonth.offset(new Date(x_extent[1])), 1);
+        }
+
 
         var xAxis = svgToUse.append("g").attr("class", "x-axis");
         xAxis.attr("transform", "translate("+margin.right/2+"," + height / 2 + ")")
@@ -122,6 +157,7 @@ function drawVis4(widthNew, heightNew, svgToUse, dif){
             )
             .call(g => g.select(".domain").remove());
 
+        /*
         d3.select(".x-axis")
             .selectAll(".tick")
             .each(function (d, i) {
@@ -130,6 +166,7 @@ function drawVis4(widthNew, heightNew, svgToUse, dif){
                     d3.select(this).select('line').attr('y2', 7.5)
                 }
             });
+            */
 
         let circles = svgToUse.append('g')
             .attr('class', 'circles')
@@ -244,8 +281,6 @@ function drawVis4(widthNew, heightNew, svgToUse, dif){
             return d3.ascending(x.value, y.value);
         })
 
-        console.log(max5)
-
         max5 = max5.slice(-5);
 
         let annotations = max5.map(function (d, i) {
@@ -308,7 +343,9 @@ function drawVis4(widthNew, heightNew, svgToUse, dif){
 
 }
 
-drawVis4(widthGlobal,
+drawVis4(defaultStartDate,
+    defaultEndDate,
+    widthGlobal,
     heightGlobal,
     svg4, 0);
 
@@ -317,15 +354,14 @@ svg4.on('click', function() {
     if ( ! svg4Clicked) {
         svg4Clicked = true;
 
-        let width = 810;
-        let height = 810;
-
         let svg = preview.append("svg")
-            .style('width', width)
-            .style('height', height);
+            .style('width', previewWidth)
+            .style('height', previewHeight);
 
-        drawVis4(width- margin.left - margin.right - scale,
-            height - margin.top - margin.bottom - scale,
+        drawVis4(defaultStartDate,
+            defaultEndDate,
+            previewWidth- margin.left - margin.right - scale,
+            previewHeight - margin.top - margin.bottom - scale,
             svg, 1);
 
     } else {
