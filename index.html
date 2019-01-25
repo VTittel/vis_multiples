@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="css/iThing.css" type="text/css" />
+    <meta charset="utf-8">
+    <title>Vis</title>
+    <style>
+        svg {
+            border: 1px solid #000;
+            height: 400px;
+            width: 400px;
+        }
+        .axis text {
+            font: 10px sans-serif;
+        }
+
+        .axis line,
+        .axis path {
+            fill: none;
+            stroke: #000;
+            shape-rendering: crispEdges;
+        }
+
+        .axis--x path {
+            display: none;
+        }
+
+        .background path {
+            fill: none;
+            stroke: #ddd;
+            stroke-opacity: .4;
+            shape-rendering: crispEdges;
+        }
+
+        .foreground path {
+            fill: none;
+            stroke: steelblue;
+            stroke-opacity: .7;
+        }
+
+        .brush .extent {
+            fill-opacity: .3;
+            stroke: #fff;
+
+            shape-rendering: crispEdges;
+        }
+
+        .axis text {
+            text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;
+            cursor: move;
+        }
+
+        .y-axis path,
+        .x-axis path {
+            stroke: #757575;
+            shape-rendering: crispEdges;
+            stroke-width: 1px;
+        }
+
+        .x-axis text,
+        .y-axis text {
+            font-size: 11px;
+            fill: #66605c;
+            opacity: 0.95;
+        }
+
+        .x-axis .tick line {
+            stroke: #66605c;
+            stroke-width: 0.5px;
+        }
+
+        .y-axis .tick line {
+            stroke: #66605c;
+            stroke-width: 0.5px;
+            opacity: 0.2;
+        }
+
+        .tooltip > *:not(:last-child) {
+            margin-bottom: 5px;
+        }
+
+        div .slider {
+            width:500px;
+            margin: auto;
+            border: 3px solid #73AD21;
+        }
+
+    </style>
+</head>
+<body>
+<h1>Vis</h1>
+
+
+<div id="slider" style = "width:500px" ></div>
+<br>
+<div class="frequency"></div>
+<input type="radio" name="editList" value="always">Days
+<input type="radio" name="editList" value="never">Months
+<input type="radio" name="editList" value="costChange">Years
+<div class="frequency"></div>
+
+<table id="vis">
+    <tr>
+        <td id="vis1"><svg width="1000" height="600"></svg></td>
+        <td id="vis2"><svg></svg></td>
+        <td id="preview" width="700" rowspan="2"></td>
+    </tr>
+    <tr>
+        <td id="vis3"><svg></svg></td>
+        <td id="vis4"><svg></svg></td>
+    </tr>
+</table>
+
+
+<!-- D3 Imports -->
+<script src="//d3js.org/d3.v4.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.11/lodash.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3-annotation/2.3.1/d3-annotation.min.js"></script>
+<script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.24.0/d3-legend.js"></script>
+
+<!-- JQuery -->
+<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.min.js"></script>
+<script src="slider/jQDateRangeSlider-min.js"></script>
+
+<!-- Visualisation files -->
+<script src="slider/slider.js"></script>
+
+<script src="vis2.js"></script>
+<script src="vis3.js"></script>
+<script src="vis4.js"></script>
+
+</body>
+</html>
