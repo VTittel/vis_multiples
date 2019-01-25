@@ -107,14 +107,41 @@
 <body>
 <h1>Vis</h1>
 
-
+<!-- Dynamic querying for vis 1
 <div id="slider" style = "width:500px" ></div>
 <br>
 <div id="frequency">
     <input type="radio" name="editList" value="Days">Days
     <input type="radio" name="editList" value="Months" checked="checked">Months
     <input type="radio" name="editList" value="Years">Years
+</div>
+-->
 
+<!-- Dynamic querying for vis 2 -->
+<form>
+    Starting date
+    <input type="date" name="startDateVis2" value="2014-01-22">
+</form>
+
+<form>
+    End date
+    <input type="date" name="endDateVis2" value="2015-01-08">
+</form>
+
+<div id="categoryForm">
+    <input type="checkbox" name="category" value="Photobooks">Photobooks
+    <input type="checkbox" name="category" value="Food" checked>Food
+    <input type="checkbox" name="category" value="Design"> Design<br>
+    <input type="checkbox" name="category" value="Games" checked>Games
+    <input type="checkbox" name="category" value="Art">Art
+    <input type="checkbox" name="category" value="Technology"> Technology<br>
+    <input type="checkbox" name="category" value="Fashion"> Fashion
+    <input type="checkbox" name="category" value="Publishing" checked> Publishing
+    <input type="checkbox" name="category" value="Film & Video"> Film & Video<br>
+    <input type="checkbox" name="category" value="Photography"> Photography
+    <input type="checkbox" name="category" value="Music"> Music
+    <input type="checkbox" name="category" value="Comics"> Comics<br>
+    <button type="button" id="submitCategory">Submit</button>
 </div>
 
 <table id="vis">
@@ -146,7 +173,8 @@
 <script src="vis2.js"></script>
 <script src="vis3.js"></script>
 <script src="vis4.js"></script>
-<script src="slider/slider.js"></script>
+<script src="vis2Events.js"></script>
+<script src="slider/vis4Events.js"></script>
 
 </body>
 </html>

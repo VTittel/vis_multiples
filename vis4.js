@@ -41,7 +41,6 @@ function drawVis4(startDate, endDate, widthNew, heightNew, svgToUse, dif){
             })
             .entries(dataset);
 
-        console.log(dataset)
         var million = 10000;
 
 

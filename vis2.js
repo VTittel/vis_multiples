@@ -8,7 +8,9 @@ var heightGlobal = 400;
 var previewWidth = 810;
 var previewHeight = 810;
 
-var categories = ["Film & Video", "Music", "Design","Games", "Fashion"];
+var categories = ["Food", "Games", "Publishing"];
+var catStartDate = new Date(2014, 1, 1);
+var catEndDate = new Date(2015, 1, 1);
 
 var svg2Clicked = false;
 
@@ -16,10 +18,14 @@ var svg2 = d3.select("#vis2 svg");
 var preview = d3.select('#preview');
 
 function filterCriteria(d) {
+    let launchedDate = new Date(d.launched);
+
     return (categories.includes(d.main_category)
         && d.state != "live"
         && d.state != "undefined"
-        && d.state != "suspended");
+        && d.state != "suspended"
+        && launchedDate >= catStartDate
+        && launchedDate <= catEndDate);
 }
 
 function drawVis2(width, height, svgToUse){
@@ -44,9 +50,9 @@ function drawVis2(width, height, svgToUse){
         .await(proc);
 
     function proc(error, data) {
-        var newData = data.filter(filterCriteria);
+        let newData = data.filter(filterCriteria);
 
-        var nested_data = d3.nest()
+        let nested_data = d3.nest()
             .key(function (d) {
                 return d.main_category;
             })

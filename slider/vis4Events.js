@@ -13,7 +13,7 @@ $("#slider").dateRangeSlider({
 $("#slider").bind("valuesChanged", function(e, data){
 
     freqSelected = document.querySelector('input[name="editList"]:checked').value;
-    console.log(freqSelected);
+//    console.log(freqSelected);
 
 
     var min = new Date(convertDate(data.values.min));
