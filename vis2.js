@@ -14,8 +14,15 @@ var catEndDate = new Date(2015, 1, 1);
 
 var svg2Clicked = false;
 
+var svg1 = d3.select('#vis1 svg');
 var svg2 = d3.select("#vis2 svg");
 var preview = d3.select('#preview');
+
+// control variables
+var controlsVis1 = d3.select('#controlsVis1');
+var controlsVis2 = d3.select('#controlsVis2');
+
+controlsVis2.style('display', 'none');
 
 function filterCriteria(d) {
     let launchedDate = new Date(d.launched);
@@ -166,10 +173,14 @@ drawVis2(widthGlobal - margin.left -margin.right - scale,
     heightGlobal - margin.top - margin.bottom - scale,
     svg2);
 
-
 svg2.on('click', function() {
 
     if ( ! svg2Clicked) {
+
+        // show/hide controls
+        controlsVis1.style('display', 'none');
+        controlsVis2.style('display', 'block');
+
         svg2Clicked = true;
 
         let width = 810;

@@ -4,6 +4,9 @@ var svg4Clicked = false;
 var svg4 = d3.select("#vis1 svg");
 var dataset;
 
+var controlsVis1 = d3.select('#controlsVis1');
+var controlsVis2 = d3.select('#controlsVis2');
+
 var defaultStartDate = new Date(2014, 1, 1);
 var defaultEndDate = new Date(2015, 1, 1);
 
@@ -352,6 +355,10 @@ svg4.on('click', function() {
 
     if ( ! svg4Clicked) {
         svg4Clicked = true;
+
+        // show/hide controls
+        controlsVis1.style('display', 'block');
+        controlsVis2.style('display', 'none');
 
         let svg = preview.append("svg")
             .style('width', previewWidth)

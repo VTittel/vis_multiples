@@ -107,28 +107,30 @@
 <body>
 <h1>Vis</h1>
 
-<!-- Dynamic querying for vis 1
-<div id="slider" style = "width:500px" ></div>
-<br>
-<div id="frequency">
-    <input type="radio" name="editList" value="Days">Days
-    <input type="radio" name="editList" value="Months" checked="checked">Months
-    <input type="radio" name="editList" value="Years">Years
-</div>
--->
+<div id="controlsVis1"> <!-- start controls of visualization 1 -->
+    <!-- Dynamic querying for vis 1 -->
+    <div id="slider" style = "width:500px" ></div>
+    <br>
+    <div id="frequency">
+        <input type="radio" name="editList" value="Days">Days
+        <input type="radio" name="editList" value="Months" checked="checked">Months
+        <input type="radio" name="editList" value="Years">Years
+    </div>
+</div> <!-- end controls of visualization 1 -->
 
-<!-- Dynamic querying for vis 2 -->
-<form>
-    Starting date
-    <input type="date" name="startDateVis2" value="2014-01-22">
-</form>
+<div id="controlsVis2"><!-- start controls of visualization 2 -->
+    <!-- Dynamic querying for vis 2 -->
+    <form>
+        Starting date
+        <input type="date" name="startDateVis2" value="2014-01-22">
+    </form>
 
-<form>
-    End date
-    <input type="date" name="endDateVis2" value="2015-01-08">
-</form>
+    <form>
+        End date
+        <input type="date" name="endDateVis2" value="2015-01-08">
+    </form>
 
-<div id="categoryForm">
+    <!--<div id="categoryForm">-->
     <input type="checkbox" name="category" value="Photobooks">Photobooks
     <input type="checkbox" name="category" value="Food" checked>Food
     <input type="checkbox" name="category" value="Design"> Design<br>
@@ -142,8 +144,10 @@
     <input type="checkbox" name="category" value="Music"> Music
     <input type="checkbox" name="category" value="Comics"> Comics<br>
     <button type="button" id="submitCategory">Submit</button>
-</div>
+    <!--</div>-->
+</div><!-- end controls of visualization 2 -->
 
+<!-- Multigrid layout -->
 <table id="vis">
     <tr>
         <td id="vis1"><svg width="1000" height="600"></svg></td>
