@@ -1,26 +1,29 @@
 var svg4Clicked = false;
 //var freqSelected = document.querySelector('input[name="editList"]:checked').value;
 
-var svg4 = d3.select("#vis1 svg");
-var dataset;
-
 var controlsVis1 = d3.select('#controlsVis1');
 var controlsVis2 = d3.select('#controlsVis2');
 
-var defaultStartDate = new Date(2014, 1, 1);
-var defaultEndDate = new Date(2015, 1, 1);
 
 var timeFormat = d3.timeFormat("%m/%d/%Y");
 
-function drawVis4(startDate, endDate, widthNew, heightNew, svgToUse, dif){
+function filterVis4(d) {
+    let launchedDate = new Date(d.launched);
+
+    return (categories.includes(d.main_category)
+        && d.state != "live"
+        && d.state != "undefined"
+        && d.state != "suspended"
+        && launchedDate >= startDate
+        && launchedDate <= endDate
+        && d.backers >= minBackers
+        && d.backers <= maxBackers);
+}
+
+function drawVis4(widthNew, heightNew, svgToUse, dif){
     d3.csv("data/short.csv", function (err, data) {
 
-        dataset = data;
-
-        dataset = dataset.filter(function (d) {
-            let launchedDate = new Date(d.launched);
-            return (launchedDate >= startDate && launchedDate <= endDate)
-        });
+        let dataset = data.filter(filterVis4);
 
         dataset = d3.nest()
             .key(function (d) {
@@ -81,7 +84,7 @@ function drawVis4(startDate, endDate, widthNew, heightNew, svgToUse, dif){
             switch(freqSelected){
                 case "Days":
                     d.Date = new Date(d.key);
-                    break
+                    break;
 
                 case "Months":
                     d.Date = new Date(sliceYearMonth(d.key));
@@ -117,12 +120,12 @@ function drawVis4(startDate, endDate, widthNew, heightNew, svgToUse, dif){
         var main_padding = 20;
         var sub_padding = 45;
 
-        var x_extent = [startDate, endDate];
+        let x_extent = [startDate, endDate];
 
         var x_scale = d3
             .scaleTime()
             .domain(x_extent)
-            .range([0, width]);
+            .range([30, width]);
 
         var y_extent = d3.extent(dataset, function (d) {
             return d.value;
@@ -345,9 +348,7 @@ function drawVis4(startDate, endDate, widthNew, heightNew, svgToUse, dif){
 
 }
 
-drawVis4(defaultStartDate,
-    defaultEndDate,
-    widthGlobal,
+drawVis4(widthGlobal,
     heightGlobal,
     svg4, 0);
 
@@ -364,9 +365,7 @@ svg4.on('click', function() {
             .style('width', previewWidth)
             .style('height', previewHeight);
 
-        drawVis4(defaultStartDate,
-            defaultEndDate,
-            previewWidth- margin.left - margin.right - scale,
+        drawVis4(previewWidth- margin.left - margin.right - scale,
             previewHeight - margin.top - margin.bottom - scale,
             svg, 1);
 

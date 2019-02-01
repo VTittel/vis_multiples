@@ -1,22 +1,4 @@
-var scale = 30;
-
-var margin = {top: 50, right: 60, bottom: 60, left: 60};
-
-var widthGlobal = 400;
-var heightGlobal = 400;
-
-var previewWidth = 810;
-var previewHeight = 810;
-
-var categories = ["Food", "Games", "Publishing"];
-var catStartDate = new Date(2014, 1, 1);
-var catEndDate = new Date(2015, 1, 1);
-
 var svg2Clicked = false;
-
-var svg1 = d3.select('#vis1 svg');
-var svg2 = d3.select("#vis2 svg");
-var preview = d3.select('#preview');
 
 // control variables
 var controlsVis1 = d3.select('#controlsVis1');
@@ -24,15 +6,17 @@ var controlsVis2 = d3.select('#controlsVis2');
 
 controlsVis2.style('display', 'none');
 
-function filterCriteria(d) {
+function filterVis2(d) {
     let launchedDate = new Date(d.launched);
 
     return (categories.includes(d.main_category)
         && d.state != "live"
         && d.state != "undefined"
         && d.state != "suspended"
-        && launchedDate >= catStartDate
-        && launchedDate <= catEndDate);
+        && launchedDate >= startDate
+        && launchedDate <= endDate
+        && d.backers >= minBackers
+        && d.backers <= maxBackers);
 }
 
 function drawVis2(width, height, svgToUse){
@@ -57,7 +41,7 @@ function drawVis2(width, height, svgToUse){
         .await(proc);
 
     function proc(error, data) {
-        let newData = data.filter(filterCriteria);
+        let newData = data.filter(filterVis2);
 
         let nested_data = d3.nest()
             .key(function (d) {
@@ -178,20 +162,17 @@ svg2.on('click', function() {
     if ( ! svg2Clicked) {
 
         // show/hide controls
-        controlsVis1.style('display', 'none');
-        controlsVis2.style('display', 'block');
+      //  controlsVis1.style('display', 'none');
+       // controlsVis2.style('display', 'block');
 
         svg2Clicked = true;
 
-        let width = 810;
-        let height = 810;
-
         let svg = preview.append("svg")
-            .style('width', width)
-            .style('height', height);
+            .style('width', previewWidth)
+            .style('height', previewHeight);
 
-        drawVis2(width- margin.left - margin.right - scale,
-            height - margin.top - margin.bottom - scale,
+        drawVis2(previewWidth- margin.left - margin.right - scale,
+            previewHeight - margin.top - margin.bottom - scale,
             svg);
 
     } else {

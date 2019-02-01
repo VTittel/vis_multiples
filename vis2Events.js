@@ -2,12 +2,13 @@ var button_my_button = "#submitCategory";
 
 $(button_my_button).click(function(){
 
+    /*
     let startDateString = document.querySelector('input[name="startDateVis2"]').value;
     let endDateString = document.querySelector('input[name="endDateVis2"]').value;
 
-    catStartDate = new Date(startDateString.replace( /(\d{2})-(\d{2})-(\d{4})/, "$2/$1/$3"));
-    catEndDate = new Date(endDateString.replace( /(\d{2})-(\d{2})-(\d{4})/, "$2/$1/$3"));
-
+    defaultStartDate = new Date(startDateString.replace( /(\d{2})-(\d{2})-(\d{4})/, "$2/$1/$3"));
+    defaultEndDate = new Date(endDateString.replace( /(\d{2})-(\d{2})-(\d{4})/, "$2/$1/$3"));
+    */
     var tempArr = [];
     [].forEach.call(document.querySelectorAll('input[name="category"]:checked'), function(cb) {
         tempArr.push(cb.value)

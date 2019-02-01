@@ -4,8 +4,6 @@ var line = d3.line(),
     foreground,
     extents;
 
-var svg3 = d3.select("#vis3 svg");
-
 var svg3Clicked = false;
 
 var quant_p = function(v){return (parseFloat(v) == v) || (v == "")};
@@ -21,8 +19,6 @@ function drawVis3(width, height, svgToUse){
 
 
     d3.csv("data/short.csv", function(error, cars) {
-
-
 
         xVis3.domain(dimensions);
 

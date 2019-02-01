@@ -1,155 +1,221 @@
-/* JS file for first vis technique */
-/* Initial parameters */
-preview = d3.select('#preview');
-var benefits = "Yes";
+/* Global parameters */
+var scale = 30;
 
-let colorScheme = d3.schemeReds[6];
-colorScheme.unshift("#eee")
-let colorScale = d3.scaleThreshold()
-    .domain([1, 6, 11, 26, 101, 1001])
-    .range(colorScheme);
+var allEnabled = false;
 
-var svg1 = d3.select("#vis1 svg");
+var margin = {top: 50, right: 60, bottom: 50, left: 60};
 
-let width = svg1.attr("width");
-let height = svg1.attr("height");
+var widthGlobal = 350;
+var heightGlobal = 350;
+
+var previewWidth = 710;
+var previewHeight = 710;
+
+var svg1 = d3.select('#vis1 svg');
+var svg2 = d3.select("#vis2 svg");
+var svg3 = d3.select("#vis3 svg");
+var svg4 = d3.select("#vis4 svg");
+
+var preview = d3.select('#preview');
+
+var startDate = new Date(2014, 1, 1);
+var endDate = new Date(2015, 1, 1);
+
+var minBackers = 0;
+var maxBackers = 20;
+
+var categories = ["Food", "Games", "Publishing"];
+
+var svg1Clicked = false;
 
 
-/* Drawing functions */
-function drawStuff(svgParam, path, mapdata){
+function filterVis1(d){
+    let launchedDate = new Date(d.launched);
 
+    return (
+      //  if (allEnabled)
+        categories.includes(d.main_category)
+        && d.state != "live"
+        && d.state != "undefined"
+        && d.state != "suspended"
+        && launchedDate >= startDate
+        && launchedDate <= endDate
+        && d.backers >= minBackers
+        && d.backers <= maxBackers);
+}
 
-// Load external data and boot
-    d3.queue()
-        .defer(d3.json, "http://enjalot.github.io/wwsd/data/world/world-110m.geojson")
-        .defer(d3.csv, "data/ksprojects2018.csv")
-        .await(ready);
+function drawVis1(width, height, svgToUse){
+    d3.csv('data/short.csv', function(err, d){
 
-    function ready(error, topo, data) {
-        if (error) throw error;
-        // Draw the map
-        var countObj = {};
-        var dat = [];
-        data.forEach(function(d){
-            if (d.Country === "US"){
-                d.Country = "USA";
-            }
-            if (d.Country === "GB"){
-                d.Country = "GBR";
-            }
-            if (d.benefits === benefits){
-                var key = d.Country + benefits;
-                if (!countObj[key]){
-                    countObj[key] = {
-                        Country: d.Country,
-                        FormalEducation: benefits,
-                        count: 0
-                    };
-                }
-                countObj[key].count++;
-            }
+        let dataVis1 = d.filter(filterVis1);
 
-        });
-
-        Object.keys(countObj).forEach(function(key) {
-            dat.push(countObj[key]);
-        });
-
-        dat.sort((a, b) => a.Country.localeCompare(b.Country));
-        let countries = dat.map(a => a.Country);
-        let counts = dat.map(a => a.count);
-
-        let i;
-
-        for (i = 0; i < countries.length; i++){
-            mapdata.set(countries[i], counts[i]);
-        }
-
-        // console.log(data);
-        svgParam.append("g")
-            .attr("class", "countries")
-            .selectAll("path")
-            .data(topo.features)
-            .enter().append("path")
-            .attr("fill", function (d){
-                d.total = mapdata.get(d.properties.name) || 0;
-                // Set the color
-                return colorScale(d.total);
+        dataVis1 = d3.nest()
+            .key(function (d) {
+                let launchedDate = new Date(d.launched);
+                return (launchedDate.getMonth()+1) + "/" + launchedDate.getFullYear();
             })
-            .attr("d", path);
+            .key(function (d) {
+                return d.main_category;
+            })
+            .rollup(function (leaves) {
+                return d3.sum(leaves, function(d){
+                    return d.usd_pledged_real;
+                })
+            })
+            .entries(dataVis1);
+
+        var mod_data = dataVis1.map(function(d){
+            let initial = d.key.split(/\//);
+            let temp = [initial[1], initial[0], initial[2]].join('/');
+
+            var obj = {
+                month: new Date(temp)
+            };
+
+            categories.forEach(function(v){
+                let found = false;
+                d.values.forEach(function(vn){
+                    if (v === vn.key){
+                        found = true;
+                        obj[vn.key] = vn.value;
+                    }
+                });
+
+                if (!found){
+                    obj[v] = 0;
+                }
+            });
+
+            return obj;
+        });
+
+        mod_data.sort(function(a,b){
+            // Turn your strings into dates, and then subtract them
+            // to get a value that is either negative, positive, or zero.
+            return a.month - b.month;
+        });
+
+        var data = mod_data;
+
+        var stack = d3.stack()
+            .keys(categories)
+         //   .order(d3.stackOrderNone)
+
+
+        var series = stack(data);
+
+        console.log(series)
+
+        var x = d3.scaleTime()
+            .domain(d3.extent(data, function(d){ return d.month; }))
+            .range([margin.left, width - margin.right/2]);
+
+        let x_extent = [startDate, endDate];
+
+// setup axis
+        let calendar= d3.timeMonth
+            .every(2)
+            .range(new Date(x_extent[0]), d3.timeMonth.offset(new Date(x_extent[1])), 1);
+
+
+        var xAxis = d3.axisBottom(x)
+            .tickValues(calendar)
+            .tickSizeInner(5)
+            .tickFormat(function (d) {
+                return timeFormat(d);
+            });
+
+        var y = d3.scaleLinear()
+            .domain([0, (d3.max(series[series.length - 1], d => (d[0] + d[1]) ))/1.5])
+            .nice()
+            .range([height/2 - margin.top, -height/2 + margin.bottom]);
+
+        var yAxis = d3.axisLeft(y);
+
+        var color = d3.scaleLinear()
+            .range(["#51D0D7", "#31B5BB"]);
+
+        var color = d3.scaleOrdinal(d3.schemeCategory20);
+
+        var area = d3.area()
+            .x(function(d) { return x(d.data.month); })
+            .y0(function(d) { return y(d[0]); })
+            .y1(function(d) { return y(d[1]); })
+            .curve(d3.curveBasis);
+
+        var tooltip = d3.select("body").append("div")
+            .attr("class", "tooltip2");
+
+
+        svgToUse.selectAll("path")
+            .data(series)
+            .enter().append("path")
+            .attr('transform', `translate(0,${height/2})`)
+            .attr("d", area)
+            .style("fill", function() { return color(Math.random()); })
+            .on('mouseover', function(d){
+                d3.select(this).style('fill',d3.rgb( d3.select(this).style("fill") ).brighter());
+                d3.select("#major").text(d.key);
+                tooltip.transition()
+                    .duration(700)
+                    .style("opacity", 1);
+                tooltip.html("Category: " + d.key)
+                    .style("left", (d3.event.pageX + 5) + "px")
+                    .style("top", (d3.event.pageY - 28) + "px");
+            })
+            .on('mouseout', function(d){
+                d3.select(this).style('fill',
+                    d3.rgb( d3.select(this).style("fill") ).darker());
+                d3.select("#major").text("Mouse over");
+                tooltip.transition()
+                    .duration(500)
+                    .style("opacity", 0);
+            })
+
+        svgToUse.append("g")
+            .attr("class", "axis axis--x")
+            .attr('transform', `translate(0,${height - margin.bottom})`)
+            .call(xAxis)
+            .selectAll("text")
+            .attr("y", 0)
+            .attr("x", 4)
+            .attr("dy", ".35em")
+            .attr("transform", "rotate(-45)")
+
+
+        svgToUse.append('g')
+            .attr('class', 'axis axis--y')
+            .attr('transform', `translate(${margin.left},${height/2})`)
+            .attr("width", 30)
+            .call(yAxis);
+
+    })
+}
+
+drawVis1(widthGlobal, heightGlobal, svg1);
+
+svg1.on('click', function() {
+
+    if ( ! svg1Clicked) {
+
+        // show/hide controls
+    //    controlsVis1.style('display', 'none');
+       // controlsVis2.style('display', 'block');
+
+        svg1Clicked = true;
+
+        let svg = preview.append("svg")
+            .style('width', previewWidth)
+            .style('height', previewHeight);
+
+        drawVis1(previewWidth,
+            previewHeight,
+            svg);
+
+    } else {
+        svg1Clicked = false;
+
+        preview.selectAll("svg").remove();
     }
-}
-
-
-/* Make the small graph */
-
-
-function drawSmall(){
-// Map and projection
-    let projection = d3.geoNaturalEarth()
-        .scale(width / 5 / Math.PI)
-        .translate([width / 5, height / 5])
-    let path = d3.geoPath()
-        .projection(projection);
-// Data and color scale
-    let mapdata = d3.map();
-// Legend
-    let g = svg1.append("g")
-        .attr("class", "legendThreshold")
-        .attr("transform", "translate(20,20)");
-    g.append("text")
-        .attr("class", "caption")
-        .attr("x", 0)
-        .attr("y", -4)
-        .text("Degrees");
-    let labels = ['0', '1-5', '6-10', '11-25', '26-100', '101-1000', '> 1000'];
-    let legend = d3.legendColor()
-        .labels(function (d) { return labels[d.i]; })
-        .shapePadding(4)
-        .scale(colorScale);
-    svg1.select(".legendThreshold")
-        .call(legend);
-
-    drawStuff(svg1, path, mapdata);
-}
-
-drawSmall();
-
-function drawBig(){
-    let width = preview.node().getBoundingClientRect()['width'];
-    let height = preview.node().getBoundingClientRect()['height'];
-
-    let svg = preview.append("svg")
-        .style('width', width)
-        .style('height', height);
-
-
-    // Map and projection
-    let projection = d3.geoNaturalEarth()
-        .scale(width / 2 / Math.PI)
-        .translate([width / 2, height / 2])
-    let path = d3.geoPath()
-        .projection(projection);
-    // Data and color scale
-    let mapdata = d3.map();
-    // Legend
-    let g = svg.append("g")
-        .attr("class", "legendThreshold")
-        .attr("transform", "translate(20,20)");
-    g.append("text")
-        .attr("class", "caption")
-        .attr("x", 0)
-        .attr("y", -4)
-        .text("Degrees");
-    let labels = ['0', '1-5', '6-10', '11-25', '26-100', '101-1000', '> 1000'];
-    let legend = d3.legendColor()
-        .labels(function (d) { return labels[d.i]; })
-        .shapePadding(4)
-        .scale(colorScale);
-    svg.select(".legendThreshold")
-        .call(legend);
-
-    drawStuff(svg, path, mapdata);
-}
-
+});
 
