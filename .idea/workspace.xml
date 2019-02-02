@@ -3,9 +3,13 @@
   <component name="ChangeListManager">
     <list default="true" id="8074a9b1-610f-48b4-9913-2e44226e0a5e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/trends.csv" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/slider/globalEvents.js" beforeDir="false" afterPath="$PROJECT_DIR$/slider/globalEvents.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vis1.js" beforeDir="false" afterPath="$PROJECT_DIR$/vis1.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vis2.js" beforeDir="false" afterPath="$PROJECT_DIR$/vis2.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vis3.js" beforeDir="false" afterPath="$PROJECT_DIR$/vis3.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vis4.js" beforeDir="false" afterPath="$PROJECT_DIR$/vis4.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -19,11 +23,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="458">
-              <caret line="160" column="14" selection-start-line="160" selection-start-column="14" selection-end-line="160" selection-end-column="14" />
+            <state relative-caret-position="583">
+              <caret line="188" column="68" selection-start-line="188" selection-start-column="68" selection-end-line="188" selection-end-column="68" />
               <folding>
                 <element signature="n#style#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -35,17 +39,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/slider/globalEvents.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="15" column="5" selection-start-line="15" selection-start-column="5" selection-end-line="15" selection-end-column="5" />
+            <state relative-caret-position="396">
+              <caret line="72" column="30" lean-forward="true" selection-start-line="72" selection-start-column="30" selection-end-line="72" selection-end-column="30" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/vis4.js">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/vis1.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="132">
-              <caret line="57" column="67" selection-start-line="57" selection-start-column="67" selection-end-line="57" selection-end-column="67" />
+            <state relative-caret-position="550">
+              <caret line="73" column="31" lean-forward="true" selection-start-line="73" selection-start-column="31" selection-end-line="73" selection-end-column="31" />
             </state>
           </provider>
         </entry>
@@ -80,11 +84,17 @@
       <find>tooltip</find>
       <find>data</find>
       <find>console</find>
+      <find>margin</find>
+      <find>d3</find>
+      <find>color</find>
+      <find>symbol</find>
+      <find>dif</find>
     </findStrings>
     <replaceStrings>
       <replace>heightVis2</replace>
       <replace>heightGlobal</replace>
       <replace>margin</replace>
+      <replace>d4</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -97,14 +107,14 @@
         <option value="$PROJECT_DIR$/countryNameToCode.js" />
         <option value="$PROJECT_DIR$/slider/slider.js" />
         <option value="$PROJECT_DIR$/slider/vis4Events.js" />
-        <option value="$PROJECT_DIR$/vis3.js" />
         <option value="$PROJECT_DIR$/vis2Events.js" />
         <option value="$PROJECT_DIR$/slider/sliderEvents.js" />
+        <option value="$PROJECT_DIR$/vis4.js" />
         <option value="$PROJECT_DIR$/vis2.js" />
+        <option value="$PROJECT_DIR$/vis3.js" />
+        <option value="$PROJECT_DIR$/slider/globalEvents.js" />
         <option value="$PROJECT_DIR$/vis1.js" />
         <option value="$PROJECT_DIR$/index.html" />
-        <option value="$PROJECT_DIR$/slider/globalEvents.js" />
-        <option value="$PROJECT_DIR$/vis4.js" />
       </list>
     </option>
   </component>
@@ -206,12 +216,12 @@
       <workItem from="1548922207886" duration="17258000" />
       <workItem from="1548970260166" duration="14684000" />
       <workItem from="1549055183398" duration="125000" />
-      <workItem from="1549111989277" duration="785000" />
+      <workItem from="1549111989277" duration="22279000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="195413000" />
+    <option name="totallyTimeSpent" value="216907000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="67" y="25" width="1853" height="1055" extended-state="6" />
@@ -272,25 +282,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/vis5.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/vis_broken.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-2706" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vis3.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="88">
-          <caret line="4" column="12" selection-start-line="4" selection-start-column="12" selection-end-line="4" selection-end-column="12" />
-        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/slider/vis4Events.js" />
@@ -305,45 +299,58 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/slider/sliderEvents.js" />
-    <entry file="file://$PROJECT_DIR$/vis2.js">
+    <entry file="file://$PROJECT_DIR$/vis5.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="15" column="21" selection-start-line="15" selection-start-column="21" selection-end-line="15" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="458">
-          <caret line="160" column="14" selection-start-line="160" selection-start-column="14" selection-end-line="160" selection-end-column="14" />
-          <folding>
-            <element signature="n#style#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vis1.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="15" column="34" lean-forward="true" selection-start-line="15" selection-start-column="34" selection-end-line="15" selection-end-column="34" />
+        <state>
           <folding>
             <element signature="n#!!doc" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/slider/globalEvents.js">
+    <entry file="file://$PROJECT_DIR$/vis4.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="15" column="5" selection-start-line="15" selection-start-column="5" selection-end-line="15" selection-end-column="5" />
+        <state relative-caret-position="441">
+          <caret line="342" selection-start-line="342" selection-end-line="342" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/vis4.js">
+    <entry file="file://$PROJECT_DIR$/vis2.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="132">
-          <caret line="57" column="67" selection-start-line="57" selection-start-column="67" selection-end-line="57" selection-end-column="67" />
+        <state relative-caret-position="330">
+          <caret line="120" column="8" lean-forward="true" selection-start-line="120" selection-start-column="8" selection-end-line="125" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vis3.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1338">
+          <caret line="98" column="27" lean-forward="true" selection-start-line="98" selection-start-column="27" selection-end-line="98" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vis1.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="550">
+          <caret line="73" column="31" lean-forward="true" selection-start-line="73" selection-start-column="31" selection-end-line="73" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/slider/globalEvents.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="396">
+          <caret line="72" column="30" lean-forward="true" selection-start-line="72" selection-start-column="30" selection-end-line="72" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="583">
+          <caret line="188" column="68" selection-start-line="188" selection-start-column="68" selection-end-line="188" selection-end-column="68" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

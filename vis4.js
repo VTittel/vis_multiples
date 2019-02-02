@@ -119,10 +119,6 @@ function drawVis4(widthNew, heightNew, svgToUse, dif){
         var width = widthNew + 260 - margin.left - margin.right;
         var height = heightNew - margin.top - margin.bottom;
 
-
-        var main_padding = 20;
-        var sub_padding = 45;
-
         let x_extent = [startDate, endDate];
 
         var x_scale = d3
@@ -345,9 +341,6 @@ function drawVis4(widthNew, heightNew, svgToUse, dif){
 
 }
 
-drawVis4(widthGlobal,
-    heightGlobal,
-    svg4, 0);
 
 svg4.on('click', function() {
 

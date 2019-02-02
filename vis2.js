@@ -118,6 +118,13 @@ function drawVis2(width, height, svgToUse){
             .attr("width", 100)
             .call(yAxis);
 
+        svgToUse.append("text")
+            .attr("x", width + margin.left  + scale )
+            .attr("y", 35)
+            .style("text-anchor", "middle")
+            // .attr("transform", "translate(" + width/2 + ",80)")
+            .text("Amount ($)");
+
         var legend = svgToUse.append('g')
             .attr('class', 'axis text')
             .attr('transform', 'translate(' + (12) + ', 5)');
@@ -152,10 +159,6 @@ function drawVis2(width, height, svgToUse){
     }
 
 }
-
-drawVis2(widthGlobal - margin.left -margin.right - scale,
-    heightGlobal - margin.top - margin.bottom - scale,
-    svg2);
 
 svg2.on('click', function() {
 

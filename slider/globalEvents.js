@@ -69,10 +69,10 @@ function updateAllVis(){
     var tempArr = [];
 
     [].forEach.call(document.querySelectorAll('input[name="category"]:checked'), function(cb) {
-      /*  if (cb.value === "All"){
+        if (cb.value === "All"){
             allEnabled = true;
             return;
-        } */
+        }
         tempArr.push(cb.value)
     });
 
@@ -111,6 +111,22 @@ function updateAllVis(){
         drawVis2(previewWidth - margin.left - margin.right - scale,
             previewHeight - margin.top - margin.bottom - scale,
             svg);
+    }
+
+    /* Update box 3*/
+    svg3.selectAll("*").remove();
+    drawVis3(widthGlobal + 10, heightGlobal - 30, svg3, 0);
+
+    if (svg3Clicked) {
+        preview.selectAll("*").remove();
+
+        let svg = preview.append("svg")
+            .style('width', previewWidth)
+            .style('height', previewHeight);
+
+        drawVis3(previewWidth,
+            previewHeight - 50,
+            svg, 1);
     }
 
     /* Update box 4 */

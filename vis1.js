@@ -16,6 +16,8 @@ var svg2 = d3.select("#vis2 svg");
 var svg3 = d3.select("#vis3 svg");
 var svg4 = d3.select("#vis4 svg");
 
+var timeFormat = d3.timeFormat("%m/%d/%Y");
+
 var preview = d3.select('#preview');
 preview.style("width", d3.select('#controlsGlobal').node().getBoundingClientRect().width - 503);
 
@@ -32,16 +34,23 @@ var svg1Clicked = false;
 function filterVis1(d){
     let launchedDate = new Date(d.launched);
 
-    return (
-      //  if (allEnabled)
-        categories.includes(d.main_category)
-        && d.state != "live"
-        && d.state != "undefined"
-        && d.state != "suspended"
-        && launchedDate >= startDate
-        && launchedDate <= endDate
-        && d.backers >= minBackers
-        && d.backers <= maxBackers);
+    console.log(allEnabled)
+
+    var initial =  d.state != "live"
+    && d.state != "undefined"
+    && d.state != "suspended"
+    && launchedDate >= startDate
+    && launchedDate <= endDate
+    && d.backers >= minBackers
+    && d.backers <= maxBackers;
+
+    if (allEnabled){
+        return initial;
+    } else {
+        return categories.includes(d.main_category) && initial;
+    }
+
+
 }
 
 function drawVis1(width, height, svgToUse){
@@ -103,8 +112,6 @@ function drawVis1(width, height, svgToUse){
 
 
         var series = stack(data);
-
-        console.log(series)
 
         var x = d3.scaleTime()
             .domain(d3.extent(data, function(d){ return d.month; }))
@@ -177,10 +184,10 @@ function drawVis1(width, height, svgToUse){
             .attr('transform', `translate(0,${height - margin.bottom})`)
             .call(xAxis)
             .selectAll("text")
-            .attr("y", 0)
-            .attr("x", 4)
-            .attr("dy", ".35em")
-            .attr("transform", "rotate(-45)")
+            .style("text-anchor", "end")
+            .attr("dx", "-.8em")
+            .attr("dy", ".15em")
+            .attr("transform", "rotate(-65)" );
 
 
         svgToUse.append('g')
@@ -189,10 +196,18 @@ function drawVis1(width, height, svgToUse){
             .attr("width", 30)
             .call(yAxis);
 
+        svgToUse.append("text")
+            .attr("x",40 )
+            .attr("y", 35)
+            .style("text-anchor", "middle")
+           // .attr("transform", "translate(" + width/2 + ",80)")
+            .text("Amount ($)");
+
+
+
     })
 }
 
-drawVis1(widthGlobal, heightGlobal, svg1);
 
 svg1.on('click', function() {
 

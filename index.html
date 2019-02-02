@@ -140,6 +140,27 @@
             border: 3px solid #73AD21;
         }
 
+        path {
+            stroke: steelblue;
+            stroke-width: 2;
+            fill: none;
+        }
+
+        .axis path,
+        .axis line {
+            fill: none;
+            stroke: grey;
+            stroke-width: 1;
+            shape-rendering: crispEdges;
+        }
+
+        .legend {
+            font-size: 8px;
+            font-weight: bold;
+            text-anchor: middle;
+        }
+
+
     </style>
 </head>
 <body>
@@ -160,18 +181,18 @@
         <input type="radio" name="editList" value="Years">Years
     </div> -->
     <!-- Category selection -->
-    <input type="checkbox" name="category" value="All">All
-    <input type="checkbox" name="category" value="Food" checked>Food
-    <input type="checkbox" name="category" value="Design"> Design<br>
-    <input type="checkbox" name="category" value="Games" checked>Games
+    <input type="checkbox" name="category" value="Crafts">Crafts
+    <input type="checkbox" name="category" value="Technology"> Technology
+    <input type="checkbox" name="category" value="Design"> Design
+    <input type="checkbox" name="category" value="Games" checked>Games<br>
     <input type="checkbox" name="category" value="Art">Art
-    <input type="checkbox" name="category" value="Technology"> Technology<br>
+    <input type="checkbox" name="category" value="Food" checked>Food
     <input type="checkbox" name="category" value="Fashion"> Fashion
+    <input type="checkbox" name="category" value="Photography"> Photography<br>
     <input type="checkbox" name="category" value="Publishing" checked> Publishing
-    <input type="checkbox" name="category" value="Film & Video"> Film & Video<br>
-    <input type="checkbox" name="category" value="Photography"> Photography
-    <input type="checkbox" name="category" value="Music"> Music
-    <input type="checkbox" name="category" value="Comics"> Comics<br>
+    <input type="checkbox" name="category" value="Film & Video"> Film & Video
+    <input type="checkbox" name="category" value="Comics"> Comics
+    <input type="checkbox" name="category" value="Music"> Music<br>
     <button type="button" id="submitCategory">Submit</button>
 </div>
 
@@ -197,7 +218,6 @@
 <script src="//d3js.org/d3.v4.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.11/lodash.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-annotation/2.3.1/d3-annotation.min.js"></script>
-<script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.24.0/d3-legend.js"></script>
 
 <!-- JQuery -->
@@ -205,11 +225,15 @@
 <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.min.js"></script>
 <script src="slider/jQDateRangeSlider-min.js"></script>
 
+
 <!-- Visualisation files -->
 <script src="vis1.js"></script>
-<script src="vis2.js"></script>
-<script src="vis4.js"></script>
 <script src="slider/globalEvents.js"></script>
+<script src="vis2.js"></script>
+<script src="vis3.js"></script>
+<script src="vis4.js"></script>
+
+
 
 </body>
 </html>
