@@ -5,10 +5,41 @@
     <meta charset="utf-8">
     <title>Vis</title>
     <style>
+        @import url('https://fonts.googleapis.com/css?family=Open+Sans');
+
+        * { margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            font-size: 12px;
+            margin: 20px 40px;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        table {
+            border-collapse: collapse;
+        }
+
+        td {
+            border: 1px solid rgb(212, 212, 212);
+        }
+
+        #controlsGlobal {
+            border: 1px solid rgb(212, 212, 212);
+            border-bottom: 0;
+            padding: 20px;
+        }
+
+        #controlsGlobal input {
+            margin-bottom: 8px;
+        }
+
         svg {
-            border: 1px solid #000;
-            height: 350px;
-            width: 350px;
+            height: 250px;
+            width: 250px;
         }
         .axis text {
             font: 10px sans-serif;
@@ -112,7 +143,7 @@
     </style>
 </head>
 <body>
-<h1>Vis</h1>
+<h1>Visualization</h1>
 
 <!-- Global controls -->
 <div id="controlsGlobal">
@@ -122,12 +153,12 @@
     <div id="sliderBackers" style = "width:500px" ></div>
     <br>
     <!--<div id="categoryForm">-->
-    <!-- Frequency selection -->
+    <!-- Frequency selection
     <div id="frequency">
         <input type="radio" name="editList" value="Days">Days
         <input type="radio" name="editList" value="Months" checked="checked">Months
         <input type="radio" name="editList" value="Years">Years
-    </div>
+    </div> -->
     <!-- Category selection -->
     <input type="checkbox" name="category" value="All">All
     <input type="checkbox" name="category" value="Food" checked>Food
@@ -148,16 +179,19 @@
 <!-- Multigrid layout -->
 <table id="vis">
     <tr>
-        <td id="vis1"><svg width="1000" height="600"></svg></td>
-        <td id="vis2"><svg></svg></td>
-        <td id="preview" width="700" rowspan="2"></td>
+        <td id="vis1" valign="top"><svg></svg></td>
+        <td id="vis2" valign="top"><svg></svg></td>
+        <td id="preview" rowspan="2"></td>
     </tr>
     <tr>
-        <td id="vis3"><svg></svg></td>
-        <td id="vis4"><svg></svg></td>
+        <td id="vis3" valign="top"><svg></svg></td>
+        <td id="vis4" valign="top"><svg></svg></td>
     </tr>
 </table>
 
+<script>
+    document.getElementById('preview').width = (document.getElementById('controlsGlobal').clientWidth);
+</script>
 
 <!-- D3 Imports -->
 <script src="//d3js.org/d3.v4.min.js"></script>

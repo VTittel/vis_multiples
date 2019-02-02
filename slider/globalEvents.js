@@ -1,4 +1,4 @@
-var freqSelected = document.querySelector('input[name="editList"]:checked').value;
+//var freqSelected = document.querySelector('input[name="editList"]:checked').value;
 var button_my_button = "#submitCategory";
 
 $("#sliderDate").dateRangeSlider({
@@ -13,7 +13,7 @@ $("#sliderDate").dateRangeSlider({
 
 $("#sliderDate").bind("valuesChanged", function(e, data){
 
-    freqSelected = document.querySelector('input[name="editList"]:checked').value;
+   // freqSelected = document.querySelector('input[name="editList"]:checked').value;
 
     // Get new dates and categories
     startDate = new Date(convertDate(data.values.min));

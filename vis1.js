@@ -5,11 +5,11 @@ var allEnabled = false;
 
 var margin = {top: 50, right: 60, bottom: 50, left: 60};
 
-var widthGlobal = 350;
-var heightGlobal = 350;
+var widthGlobal = 250;
+var heightGlobal = 250;
 
-var previewWidth = 710;
-var previewHeight = 710;
+var previewWidth = d3.select('#controlsGlobal').node().getBoundingClientRect().width - 504;
+var previewHeight = 500;
 
 var svg1 = d3.select('#vis1 svg');
 var svg2 = d3.select("#vis2 svg");
@@ -17,6 +17,7 @@ var svg3 = d3.select("#vis3 svg");
 var svg4 = d3.select("#vis4 svg");
 
 var preview = d3.select('#preview');
+preview.style("width", d3.select('#controlsGlobal').node().getBoundingClientRect().width - 503);
 
 var startDate = new Date(2014, 1, 1);
 var endDate = new Date(2015, 1, 1);
@@ -27,7 +28,6 @@ var maxBackers = 20;
 var categories = ["Food", "Games", "Publishing"];
 
 var svg1Clicked = false;
-
 
 function filterVis1(d){
     let launchedDate = new Date(d.launched);
