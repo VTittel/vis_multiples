@@ -160,7 +160,22 @@
             text-anchor: middle;
         }
 
+        .wrap {
+            overflow: hidden;
+            width: 600px;
+        }
 
+        .wrap p {
+            float: left;
+            font-size: 20px;
+            margin-top: 36px;
+        }
+
+        #sliderDate,
+        #sliderBackers {
+            float: right;
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 <body>
@@ -169,10 +184,14 @@
 <!-- Global controls -->
 <div id="controlsGlobal">
     <!-- Sliders -->
-    <div id="sliderDate" style = "width:500px" ></div>
-    <br>
-    <div id="sliderBackers" style = "width:500px" ></div>
-    <br>
+    <div class="wrap">
+        <p>Date:</p>
+        <div id="sliderDate" style = "width:500px" ></div>
+    </div>
+    <div class="wrap">
+        <p>Backers:</p>
+        <div id="sliderBackers" style = "width:500px" ></div>
+    </div>
     <!--<div id="categoryForm">-->
     <!-- Frequency selection
     <div id="frequency">
@@ -193,6 +212,28 @@
     <input type="checkbox" name="category" value="Film & Video"> Film & Video
     <input type="checkbox" name="category" value="Comics"> Comics
     <input type="checkbox" name="category" value="Music"> Music<br>
+
+    <select id="countries">
+        <option value="allCountries" selected="selected">All</option>
+        <option value="US">US</option>
+        <option value="CA">CA</option>
+        <option value="AU">AU</option>
+        <option value="NO">NO</option>
+        <option value="IT">IT</option>
+        <option value="DE">DE</option>
+        <option value="IE">IE</option>
+        <option value="MX">MX</option>
+        <option value="ES">ES</option>
+        <option value="FR">FR</option>
+        <option value="NL">NL</option>
+        <option value="NZ">NZ</option>
+        <option value="CH">CH</option>
+        <option value="DK">DK</option>
+        <option value="BE">BE</option>
+        <option value="HK">HK</option>
+        <option value="SG">SG</option>
+        <option value="JP">JP</option>
+    </select>
     <button type="button" id="submitCategory">Submit</button>
 </div>
 
@@ -216,6 +257,8 @@
 
 <!-- D3 Imports -->
 <script src="//d3js.org/d3.v4.min.js"></script>
+<script src="https://d3js.org/d3-color.v1.min.js"></script>
+<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.11/lodash.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-annotation/2.3.1/d3-annotation.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.24.0/d3-legend.js"></script>
@@ -232,8 +275,6 @@
 <script src="vis2.js"></script>
 <script src="vis3.js"></script>
 <script src="vis4.js"></script>
-
-
 
 </body>
 </html>

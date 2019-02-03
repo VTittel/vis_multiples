@@ -9,14 +9,21 @@ controlsVis2.style('display', 'none');
 function filterVis2(d) {
     let launchedDate = new Date(d.launched);
 
-    return (categories.includes(d.main_category)
+    let initial = categories.includes(d.main_category)
         && d.state != "live"
         && d.state != "undefined"
         && d.state != "suspended"
         && launchedDate >= startDate
         && launchedDate <= endDate
         && d.backers >= minBackers
-        && d.backers <= maxBackers);
+        && d.backers <= maxBackers;
+
+    if (country === "allCountries"){
+        return initial;
+    } else {
+        return ((d.country === country)
+            && initial);
+    }
 }
 
 function drawVis2(width, height, svgToUse){
@@ -27,7 +34,7 @@ function drawVis2(width, height, svgToUse){
     const y = d3.scaleLinear()
         .rangeRound([height, 0])
 
-    const z = d3.scaleOrdinal(d3.schemeCategory10)
+    const z = d3.scaleOrdinal(d3.schemeAccent)
 
 
     const xAxis = d3.axisBottom()

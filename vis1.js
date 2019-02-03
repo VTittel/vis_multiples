@@ -3,6 +3,8 @@ var scale = 30;
 
 var allEnabled = false;
 
+var country = "allCountries";
+
 var margin = {top: 50, right: 60, bottom: 50, left: 60};
 
 var widthGlobal = 250;
@@ -34,20 +36,20 @@ var svg1Clicked = false;
 function filterVis1(d){
     let launchedDate = new Date(d.launched);
 
-    console.log(allEnabled)
+    let initial = categories.includes(d.main_category)
+        && d.state != "live"
+        && d.state != "undefined"
+        && d.state != "suspended"
+        && launchedDate >= startDate
+        && launchedDate <= endDate
+        && d.backers >= minBackers
+        && d.backers <= maxBackers;
 
-    var initial =  d.state != "live"
-    && d.state != "undefined"
-    && d.state != "suspended"
-    && launchedDate >= startDate
-    && launchedDate <= endDate
-    && d.backers >= minBackers
-    && d.backers <= maxBackers;
-
-    if (allEnabled){
+    if (country === "allCountries"){
         return initial;
     } else {
-        return categories.includes(d.main_category) && initial;
+        return ((d.country === country)
+            && initial);
     }
 
 
@@ -139,9 +141,6 @@ function drawVis1(width, height, svgToUse){
 
         var yAxis = d3.axisLeft(y);
 
-        var color = d3.scaleLinear()
-            .range(["#51D0D7", "#31B5BB"]);
-
         var color = d3.scaleOrdinal(d3.schemeCategory20);
 
         var area = d3.area()
@@ -159,7 +158,7 @@ function drawVis1(width, height, svgToUse){
             .enter().append("path")
             .attr('transform', `translate(0,${height/2})`)
             .attr("d", area)
-            .style("fill", function() { return color(Math.random()); })
+            .style('fill', (d, i) => (color(i)))
             .on('mouseover', function(d){
                 d3.select(this).style('fill',d3.rgb( d3.select(this).style("fill") ).brighter());
                 d3.select("#major").text(d.key);
@@ -202,6 +201,36 @@ function drawVis1(width, height, svgToUse){
             .style("text-anchor", "middle")
            // .attr("transform", "translate(" + width/2 + ",80)")
             .text("Amount ($)");
+
+
+        color.domain(categories);
+
+        var legend = svgToUse.append("g")
+            .attr("font-family", "sans-serif")
+            .attr("font-size", 10)
+            .attr("text-anchor", "end")
+            .selectAll("g")
+            .data(categories.slice().reverse())
+            .enter().append("g")
+            .attr("transform", function(d, i) {
+                return "translate(0," + i * 20 + ")";
+            });
+
+        //append legend colour blocks
+        legend.append("rect")
+            .attr("x", width - 25)
+            .attr("width", 20)
+            .attr("height", 20)
+            .attr("fill", color);
+
+        //append legend texts
+        legend.append("text")
+            .attr("x", width - 35)
+            .attr("y", 9.5)
+            .attr("dy", "0.32em")
+            .text(function(d) {
+                return d;
+            });
 
 
 

@@ -26,11 +26,11 @@ $("#sliderDate").bind("valuesChanged", function(e, data){
 $("#sliderBackers").rangeSlider({
     bounds:{
         min: 0,
-        max: 1000
+        max: 6000
     },
     defaultValues:{
         min: 0,
-        max: 20
+        max: 50
     }});
 
 $("#sliderBackers").bind("valuesChanged", function(e, data){
@@ -43,14 +43,6 @@ $("#sliderBackers").bind("valuesChanged", function(e, data){
 });
 
 $(button_my_button).click(function(){
-
-    /*
-    let startDateString = document.querySelector('input[name="startDateVis2"]').value;
-    let endDateString = document.querySelector('input[name="endDateVis2"]').value;
-
-    defaultStartDate = new Date(startDateString.replace( /(\d{2})-(\d{2})-(\d{4})/, "$2/$1/$3"));
-    defaultEndDate = new Date(endDateString.replace( /(\d{2})-(\d{2})-(\d{4})/, "$2/$1/$3"));
-    */
 
     updateAllVis();
 
@@ -66,17 +58,19 @@ function convertDate(date){
 }
 
 function updateAllVis(){
+
+    var e = document.getElementById("countries");
+
+    country = e.options[e.selectedIndex].value;
+
     var tempArr = [];
 
     [].forEach.call(document.querySelectorAll('input[name="category"]:checked'), function(cb) {
-        if (cb.value === "All"){
-            allEnabled = true;
-            return;
-        }
         tempArr.push(cb.value)
     });
 
     categories = tempArr;
+    console.log(categories)
 
     /* Update box 1 */
     svg1.selectAll("*").remove();
