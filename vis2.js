@@ -171,9 +171,11 @@ svg2.on('click', function() {
 
     if ( ! svg2Clicked) {
 
-        // show/hide controls
-      //  controlsVis1.style('display', 'none');
-       // controlsVis2.style('display', 'block');
+        preview.selectAll("*").remove();
+
+        svg1Clicked = false;
+        svg3Clicked = false;
+        svg4Clicked = false;
 
         svg2Clicked = true;
 

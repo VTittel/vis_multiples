@@ -166,6 +166,12 @@ svg3.on('dblclick', function() {
 
     if ( ! svg3Clicked) {
 
+        preview.selectAll("*").remove();
+
+        svg1Clicked = false;
+        svg2Clicked = false;
+        svg4Clicked = false;
+
         svg3Clicked = true;
 
         let svg = preview.append("svg")

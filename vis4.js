@@ -352,11 +352,15 @@ function drawVis4(widthNew, heightNew, svgToUse, dif){
 svg4.on('click', function() {
 
     if ( ! svg4Clicked) {
+
+        preview.selectAll("*").remove();
+
+        svg1Clicked = false;
+        svg2Clicked = false;
+        svg3Clicked = false;
+
         svg4Clicked = true;
 
-        // show/hide controls
-        controlsVis1.style('display', 'block');
-        controlsVis2.style('display', 'none');
 
         let svg = preview.append("svg")
             .style('width', previewWidth)

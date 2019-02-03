@@ -3,7 +3,7 @@ var button_my_button = "#submitCategory";
 
 $("#sliderDate").dateRangeSlider({
     bounds:{
-        min: new Date(2014, 0, 1),
+        min: new Date(2010, 0, 1),
         max: new Date(2017, 11, 31)
     },
     defaultValues:{

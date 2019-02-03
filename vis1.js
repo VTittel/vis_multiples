@@ -23,8 +23,8 @@ var timeFormat = d3.timeFormat("%m/%d/%Y");
 var preview = d3.select('#preview');
 preview.style("width", d3.select('#controlsGlobal').node().getBoundingClientRect().width - 503);
 
-var startDate = new Date(2014, 1, 1);
-var endDate = new Date(2015, 1, 1);
+var startDate = new Date(2010, 0, 1);
+var endDate = new Date(2015, 0, 1);
 
 var minBackers = 0;
 var maxBackers = 20;
@@ -188,19 +188,8 @@ function drawVis1(width, height, svgToUse){
             .attr("dy", ".15em")
             .attr("transform", "rotate(-65)" );
 
+        
 
-        svgToUse.append('g')
-            .attr('class', 'axis axis--y')
-            .attr('transform', `translate(${margin.left},${height/2})`)
-            .attr("width", 30)
-            .call(yAxis);
-
-        svgToUse.append("text")
-            .attr("x",40 )
-            .attr("y", 35)
-            .style("text-anchor", "middle")
-           // .attr("transform", "translate(" + width/2 + ",80)")
-            .text("Amount ($)");
 
 
         color.domain(categories);
@@ -241,10 +230,11 @@ function drawVis1(width, height, svgToUse){
 svg1.on('click', function() {
 
     if ( ! svg1Clicked) {
+        preview.selectAll("*").remove();
 
-        // show/hide controls
-    //    controlsVis1.style('display', 'none');
-       // controlsVis2.style('display', 'block');
+        svg2Clicked = false;
+        svg3Clicked = false;
+        svg4Clicked = false;
 
         svg1Clicked = true;
 
